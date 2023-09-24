@@ -23,56 +23,39 @@ const bot = new TelegramBot(TOKEN, { polling: true });
 
 let chatId;
 let userId;
-bot.on("message", async (message) => {
-  console.log(message);
-});
-// bot.on("new_chat_members", (msg) => {
-//   console.log(msg);
-//   chatId = msg.chat.id;
-//   const newMembers = msg.new_chat_members;
 
-//   newMembers.forEach(async (member) => {
-//     if (!member.is_bot) {
-//       userId = member.id;
-//       const newDate = new Date();
+bot.on("new_chat_members", async (msg) => {
+  chatId = msg.chat.id;
+  userId = msg.new_chat_members;
 
-//       const userBody = {
-//         userId: userId,
-//         joinDate: newDate,
-//       };
-//       const text = await User.create(userBody);
-//       console.log(text);
-//     }
-//   });
-// });
-bot.onText(/\/link/, async (msg) => {
-  const chatid = msg.chat.id;
-  var link = await bot.exportChatInviteLink(chatid);
-  bot.sendMessage(chatid, "Invite: " + link);
-});
-bot.on("new_chat_participant", (msg) => {
-  const chatId = msg.chat.id;
-  const newMembers = msg.new_chat_participant;
-  console.log(newMembers);
-  newMembers.forEach((member) => {
+  const userok = { userId: userId[0].id, joinDate: new Date() };
+  await User.create(userok);
+  userId.forEach((member) => {
     if (!member.is_bot) {
       console.log(`New member joined: ${member.first_name} (${member.id})`);
     }
   });
+  aboba();
 });
-setInterval(async () => {
+const aboba = async () => {
   if (chatId && userId) {
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
     try {
-      const usersToKick = await User.find({
-        userId: userId,
-        joinDate: { $lt: thirtyDaysAgo },
-      });
+      const allUsers = await User.find();
+
+      const currentDate = new Date();
+
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+      const usersToKick = allUsers.filter(
+        (user) => user.joinDate <= thirtyDaysAgo
+      );
+
+      console.log(usersToKick);
 
       for (const user of usersToKick) {
-        await bot.kickChatMember(chatId, user.userId);
+        await bot.banChatMember(chatId, user.userId);
+        await User.findByIdAndRemove(user._id);
       }
     } catch (error) {
       console.error("Error kicking user:", error);
@@ -80,6 +63,8 @@ setInterval(async () => {
   } else {
     console.error("chatId and userId are not set.");
   }
-}, 24 * 60 * 60 * 1000);
+};
+
+// setInterval(, 24 * 60 * 60 * 1000);
 
 console.log("Bot is running...");
