@@ -35,10 +35,10 @@ bot.on("new_chat_members", async (msg) => {
       console.log(`New member joined: ${member.first_name} (${member.id})`);
     }
   });
-  aboba();
 });
-const aboba = async () => {
-  if (chatId && userId) {
+
+setInterval(async () => {
+  if (chatId) {
     try {
       const allUsers = await User.find();
 
@@ -52,9 +52,11 @@ const aboba = async () => {
       );
 
       console.log(usersToKick);
-
+      await bot.banChatMember(chatId, usersToKick[0].userId);
+      // for (const user of usersToKick) {
+      //
+      // }
       for (const user of usersToKick) {
-        await bot.banChatMember(chatId, user.userId);
         await User.findByIdAndRemove(user._id);
       }
     } catch (error) {
@@ -63,8 +65,6 @@ const aboba = async () => {
   } else {
     console.error("chatId and userId are not set.");
   }
-};
-
-// setInterval(, 24 * 60 * 60 * 1000);
+}, 60 * 1000);
 
 console.log("Bot is running...");
