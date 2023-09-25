@@ -27,14 +27,19 @@ let userId;
 bot.on("new_chat_members", async (msg) => {
   chatId = msg.chat.id;
   userId = msg.new_chat_members;
+  for (const newMember of userId) {
+    if (!newMember.is_bot) {
+      const existingUser = await User.findOne({ userId: newMember.id });
 
-  const userok = { userId: userId[0].id, joinDate: new Date() };
-  await User.create(userok);
-  userId.forEach((member) => {
-    if (!member.is_bot) {
-      console.log(`New member joined: ${member.first_name} (${member.id})`);
+      if (!existingUser) {
+        const userok = { userId: newMember.id, joinDate: new Date() };
+        await User.create(userok);
+        console.log(
+          `New member joined: ${newMember.first_name} (${newMember.id})`
+        );
+      }
     }
-  });
+  }
 });
 
 setInterval(async () => {
@@ -52,10 +57,10 @@ setInterval(async () => {
       );
 
       console.log(usersToKick);
-      await bot.banChatMember(chatId, usersToKick[0].userId);
-      // for (const user of usersToKick) {
-      //
-      // }
+
+      for (const user of usersToKick) {
+        await bot.banChatMember(chatId, usersToKick[0].userId);
+      }
       for (const user of usersToKick) {
         await User.findByIdAndRemove(user._id);
       }
@@ -65,6 +70,6 @@ setInterval(async () => {
   } else {
     console.error("chatId and userId are not set.");
   }
-}, 60 * 1000);
+}, 24 * 60 * 60 * 1000);
 
 console.log("Bot is running...");
