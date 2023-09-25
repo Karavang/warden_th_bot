@@ -3,6 +3,7 @@ const { string } = require("yargs");
 const fromEnv = process.env;
 const schema = new Schema(
   {
+    chat: Number,
     userId: String,
     joinDate: Date,
   },
