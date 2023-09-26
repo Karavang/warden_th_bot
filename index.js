@@ -1,11 +1,11 @@
 const TelegramBot = require("node-telegram-bot-api");
-const mongoose = require("mongoose");
+
 const { User, mongoConnect } = require("./forDb");
-const express = require("express");
+
 require("dotenv").config();
-const app = express();
+
 const TOKEN = process.env.TOKEN;
-const PORT = process.env.PORT;
+
 const startServer = async () => {
   try {
     await mongoConnect();
@@ -13,9 +13,6 @@ const startServer = async () => {
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
-  app.listen(PORT, () => {
-    console.log("Server woke up");
-  });
 };
 startServer();
 
