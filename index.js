@@ -1,12 +1,12 @@
 const TelegramBot = require("node-telegram-bot-api");
-
+const express = require("express");
 const { User, mongoConnect } = require("./forDb");
 
 require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
 
-export const startServer = async () => {
+const startServer = async () => {
   try {
     await mongoConnect();
     console.log("Connected to MongoDB!");
@@ -71,3 +71,4 @@ setInterval(async () => {
 }, 24 * 60 * 60 * 1000);
 //
 console.log("Bot is running...");
+module.exports = { express, startServer };
