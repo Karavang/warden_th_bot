@@ -43,8 +43,7 @@ bot.on("new_chat_members", async (msg) => {
     }
   }
 });
-
-setInterval(async () => {
+const aboba = async () => {
   if (chatId) {
     try {
       const allUsers = await User.find();
@@ -68,7 +67,9 @@ setInterval(async () => {
   } else {
     console.error("chatId and userId are not set.");
   }
-}, 60 * 1000);
-//24 * 60 *
+};
+aboba();
+setInterval(aboba(), 24 * 60 * 60 * 1000);
+
 console.log("Bot is running...");
 module.exports = startServer;
