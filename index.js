@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
 const app = express();
-app.listen(async () => {
+app.listen(443, async () => {
   try {
     await mongoConnect();
     console.log("Connected to MongoDB!");
