@@ -6,8 +6,8 @@ require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
 const app = express();
+const bot = new TelegramBot(TOKEN, { polling: true });
 const atStart = async () => {
-  const bot = new TelegramBot(TOKEN, { polling: true });
   try {
     await mongoConnect();
     console.log("Connected to MongoDB!");
