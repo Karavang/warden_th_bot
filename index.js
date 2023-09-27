@@ -23,7 +23,7 @@ let userId;
 bot.on("new_chat_members", async (msg) => {
   chatId = msg.chat.id;
   userId = msg.new_chat_member;
-
+  console.log("C'mon is work!");
   if (!userId.is_bot) {
     const existingUser = await User.findOne({
       chat: chatId,
