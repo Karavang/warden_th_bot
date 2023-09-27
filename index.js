@@ -70,7 +70,7 @@ const aboba = async () => {
   }
 };
 
-setInterval(aboba, 9 * 1000);
-// 24 * 60 * 60
+setInterval(aboba, 24 * 60 * 60 * 1000);
+
 console.log("Bot is running...");
 module.exports = startServer;
