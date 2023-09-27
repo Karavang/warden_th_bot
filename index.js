@@ -5,7 +5,7 @@ const { User, mongoConnect } = require("./forDb");
 require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
-
+const app = express();
 const startServer = async () => {
   try {
     await mongoConnect();
@@ -73,4 +73,4 @@ const aboba = async () => {
 setInterval(aboba, 24 * 60 * 60 * 1000);
 
 console.log("Bot is running...");
-module.exports = startServer;
+module.exports = app;
