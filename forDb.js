@@ -1,5 +1,4 @@
 const { Schema, model, connect } = require("mongoose");
-const { string } = require("yargs");
 const fromEnv = process.env;
 const schema = new Schema(
   {
