@@ -6,16 +6,15 @@ require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
 const app = express();
-app.listen(async () => {
+const atStart = async () => {
+  const bot = new TelegramBot(TOKEN, { polling: true });
   try {
     await mongoConnect();
     console.log("Connected to MongoDB!");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
-});
-
-const bot = new TelegramBot(TOKEN, { polling: true });
+};
 
 let chatId;
 let userId;
@@ -72,4 +71,4 @@ const aboba = async () => {
 setInterval(aboba, 24 * 60 * 60 * 1000);
 
 console.log("Bot is running...");
-module.exports = app;
+module.exports = atStart;

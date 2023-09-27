@@ -6,7 +6,9 @@
         "use": "@vercel/node"
       }
     ],
-   
+    "routes": [
+      { "src": "/.*", "dest": "./index.js" } 
+    ],
     "env": {
           "TOKEN": "6624422784:AAHbG8qhJ9qYlRxIq4O7wAj8W-EFD_x0eUY",
           "LINK": "mongodb+srv://Karavang:retro212121@cluster0.3wuvphi.mongodb.net/Warden?retryWrites=true&w=majority"
