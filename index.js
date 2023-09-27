@@ -68,7 +68,7 @@ setInterval(async () => {
   } else {
     console.error("chatId and userId are not set.");
   }
-}, 24 * 60 * 60 * 1000);
-//
+}, 60 * 1000);
+//24 * 60 *
 console.log("Bot is running...");
 module.exports = startServer;
