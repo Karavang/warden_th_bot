@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const TOKEN = process.env.TOKEN;
 
-const startServer = async () => {
+export const startServer = async () => {
   try {
     await mongoConnect();
     console.log("Connected to MongoDB!");
