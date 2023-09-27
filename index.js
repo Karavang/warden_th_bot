@@ -71,4 +71,4 @@ setInterval(async () => {
 }, 24 * 60 * 60 * 1000);
 //
 console.log("Bot is running...");
-module.exports = { express, startServer };
+module.exports = startServer;
