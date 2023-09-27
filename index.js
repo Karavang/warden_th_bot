@@ -65,7 +65,7 @@ const aboba = async () => {
   }
 };
 
-setInterval(aboba, 9 * 1000);
+setInterval(aboba, 5 * 1000);
 
 console.log("Bot is running...");
 module.exports = atStart;
