@@ -1,11 +1,8 @@
 const TelegramBot = require("node-telegram-bot-api");
-const express = require("express");
 const { User, mongoConnect } = require("./forDb");
 
 require("dotenv").config();
-
 const TOKEN = process.env.TOKEN;
-const app = express();
 const bot = new TelegramBot(TOKEN, { polling: true });
 const atStart = async () => {
   try {
@@ -68,7 +65,7 @@ const aboba = async () => {
   }
 };
 
-setInterval(aboba, 24 * 60 * 60 * 1000);
+setInterval(aboba, 9 * 1000);
 
 console.log("Bot is running...");
 module.exports = atStart;
