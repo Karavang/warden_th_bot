@@ -13,29 +13,29 @@ const atStart = async () => {
     console.error("Error connecting to MongoDB:", error);
   }
 };
-
-let chatId;
-let userId;
+atStart();
 
 bot.on("new_chat_members", async (msg) => {
-  chatId = msg.chat.id;
-  userId = msg.new_chat_member;
+  const chatId = msg.chat.id;
+  const usersId = msg.new_chat_members;
   console.log("C'mon is work!");
-  if (!userId.is_bot) {
-    const existingUser = await User.findOne({
-      chat: chatId,
-      userId: userId.id,
-    });
-    console.log(existingUser);
-    if (!existingUser) {
-      const userok = {
+  for (const userId of usersId) {
+    if (!userId.is_bot) {
+      const existingUser = await User.findOne({
         chat: chatId,
         userId: userId.id,
-        joinDate: new Date(),
-      };
+      });
+      console.log(existingUser);
+      if (!existingUser) {
+        const userok = {
+          chat: chatId,
+          userId: userId.id,
+          joinDate: new Date(),
+        };
 
-      await User.create(userok);
-      console.log(`New member joined: ${userId.first_name} (${userId.id})`);
+        await User.create(userok);
+        console.log(`New member joined: ${userId.first_name} (${userId.id})`);
+      }
     }
   }
 });
