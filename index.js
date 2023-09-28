@@ -14,7 +14,7 @@ const atStart = async () => {
     console.error("Error connecting to MongoDB:", error);
   }
 };
-atStart();
+
 let chatId;
 let userId;
 
