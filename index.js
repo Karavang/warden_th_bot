@@ -8,6 +8,7 @@ const atStart = async () => {
   try {
     await mongoConnect();
     console.log("Connected to MongoDB!");
+    aboba;
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
@@ -64,8 +65,7 @@ const aboba = async () => {
     console.error("chatId and userId are not set.");
   }
 };
-
-setInterval(aboba, 5 * 1000);
+setInterval(aboba, 24 * 60 * 60 * 1000);
 
 console.log("Bot is running...");
 module.exports = atStart;
