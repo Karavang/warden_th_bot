@@ -58,10 +58,10 @@ const aboba = async () => {
       await bot.banChatMember(user.chat, user.userId);
       await User.findByIdAndRemove(user._id);
     }
+    return usersToKick;
   } catch (error) {
     console.error("Error kicking user:", error);
   }
-  return usersToKick;
 };
 setInterval(aboba, 24 * 60 * 60 * 1000);
 
