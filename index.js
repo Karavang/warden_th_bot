@@ -35,6 +35,7 @@ bot.on("new_chat_members", async (msg) => {
 
         await User.create(userok);
         console.log(`New member joined: ${userId.first_name} (${userId.id})`);
+        return userok;
       }
     }
   }
@@ -60,6 +61,7 @@ const aboba = async () => {
   } catch (error) {
     console.error("Error kicking user:", error);
   }
+  return usersToKick;
 };
 setInterval(aboba, 24 * 60 * 60 * 1000);
 
