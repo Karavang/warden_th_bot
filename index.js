@@ -8,12 +8,12 @@ const atStart = async () => {
   try {
     await mongoConnect();
     console.log("Connected to MongoDB!");
-    aboba;
+    aboba();
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
 };
-
+atStart();
 let chatId;
 let userId;
 
